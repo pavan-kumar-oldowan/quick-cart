@@ -5,12 +5,12 @@
 
  let isAvailable:boolean = true;
 
-console.log(itemName,itemPrice,isAvailable);
+//console.log(itemName,itemPrice,isAvailable);
 
  // create an Array 
 
  let productsAvailable :string[] =["TV","FANS","AC","MOBILES"]
- console.log(productsAvailable)
+// console.log(productsAvailable)
   
  // create a Interface
 
@@ -33,13 +33,47 @@ console.log(itemName,itemPrice,isAvailable);
  // add the sproducts in allProduct[]
 
  AllProduct.push(product1,product2,product3)
- console.log(AllProduct)
+ //console.log(AllProduct)
 
  // create a DisplayFunction
 
  function displayProduct(prod:product):void{
-    console.log(`itemName is :${prod.name}`)
-    console.log(`itemPrice is :${prod.price}`);
+   // console.log(`itemName is :${prod.name}`)
+    //console.log(`itemPrice is :${prod.price}`);
  }
 
  displayProduct(product1);
+
+ type CartItemID =number;
+
+ interface Cartitem {
+      product:product;
+      quantity:number;
+ }
+// Creata a class 
+ class  ShoppingCart{
+    items :Cartitem[]=[];
+
+ // Create a Add Method
+    additem(product:product,quantity:number):void{
+         // Check product already exist in the cart
+            const existingItem = this.items.find(
+                 (item) => item.product.id === product.id
+                );
+         // Update the Quantity
+          if(existingItem){
+             existingItem.quantity+=quantity;
+          }
+          else{
+            // create a new Iteam
+             const newItem:Cartitem ={product,quantity};
+             this.items.push(newItem);
+          }
+        
+     }
+      getTotalItems(){
+      //  console.log(this.items)
+      }
+ }
+ const cart = new ShoppingCart()
+ cart.getTotalItems();
