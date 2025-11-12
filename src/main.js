@@ -1,15 +1,15 @@
-var itemName = "TV";
-var itemPrice = 5000;
-var isAvailable = true;
+let itemName = "TV";
+let itemPrice = 5000;
+let isAvailable = true;
 //console.log(itemName,itemPrice,isAvailable);
 // create an Array 
-var productsAvailable = ["TV", "FANS", "AC", "MOBILES"];
+let productsAvailable = ["TV", "FANS", "AC", "MOBILES"];
 // create a AllProductArray it Accepts only product [] array only
-var AllProduct = [];
+let AllProduct = [];
 // create a sample products objects
-var product1 = { id: 1, name: "TV", price: 8000, description: "24-inch display" };
-var product2 = { id: 2, name: "Fans", price: 6000 };
-var product3 = { id: 3, name: "AC", price: 60000, description: "3-star" };
+let product1 = { id: 1, name: "TV", price: 8000, description: "24-inch display" };
+let product2 = { id: 2, name: "Fans", price: 6000 };
+let product3 = { id: 3, name: "AC", price: 60000, description: "3-star" };
 // add the sproducts in allProduct[]
 AllProduct.push(product1, product2, product3);
 //console.log(AllProduct)
@@ -20,28 +20,56 @@ function displayProduct(prod) {
 }
 displayProduct(product1);
 // Creata a class 
-var ShoppingCart = /** @class */ (function () {
-    function ShoppingCart() {
+class ShoppingCart {
+    constructor() {
         this.items = [];
     }
     // Create a Add Method
-    ShoppingCart.prototype.additem = function (product, quantity) {
+    additem(product, quantity) {
         // Check product already exist in the cart
-        var existingItem = this.items.find(function (item) { return item.product.id === product.id; });
+        const existingItem = this.items.find((item) => item.product.id === product.id);
         // Update the Quantity
         if (existingItem) {
             existingItem.quantity += quantity;
         }
         else {
             // create a new Iteam
-            var newItem = { product: product, quantity: quantity };
+            const newItem = { product, quantity };
             this.items.push(newItem);
         }
-    };
-    ShoppingCart.prototype.getTotalItems = function () {
-        //  console.log(this.items)
-    };
-    return ShoppingCart;
-}());
-var cart = new ShoppingCart();
-cart.getTotalItems();
+    }
+    // Remove Item In the Cart
+    removeItem(productid) {
+        this.items = this.items.filter((item) => item.product.id == productid);
+    }
+    calculateTotal() {
+        return this.items.reduce((total, item) => item.quantity * item.product.price, 0);
+    }
+    getItems() {
+        return this.items;
+    }
+    getTotalItems() {
+        return this.items.reduce((total, item) => item.quantity + total, 0);
+    }
+    renderCart(container) {
+        container.innerHTML = "";
+        this.items.forEach(item => {
+            const p = document.createElement("p");
+            p.textContent = `${item.product.name}-Quantity:${item.quantity}`;
+            container.appendChild(p);
+        });
+        const total = document.createElement("p");
+        total.textContent = `Total: $${this.calculateTotal()}`;
+        container.appendChild(total);
+    }
+}
+const cart = new ShoppingCart();
+const appDiv = document.getElementById("app");
+const button = document.getElementById("test-button");
+button.addEventListener("click", () => {
+    cart.additem(product1, 4);
+    cart.renderCart(appDiv);
+});
+cart.additem(product1, 2);
+export {};
+//# sourceMappingURL=main.js.map

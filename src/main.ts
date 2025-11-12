@@ -52,7 +52,7 @@
  }
 // Creata a class 
  class  ShoppingCart{
-    items :Cartitem[]=[];
+   private items :Cartitem[]=[];
 
  // Create a Add Method
     additem(product:product,quantity:number):void{
@@ -71,9 +71,49 @@
           }
         
      }
-      getTotalItems(){
-      //  console.log(this.items)
+
+     // Remove Item In the Cart
+
+     removeItem(productid:number):void{
+         this.items=this.items.filter((item)=>item.product.id==productid)
+     }
+      
+     calculateTotal():number{
+         return this.items.reduce((total,item)=>item.quantity*item.product.price,0)
+     }
+      
+     getItems():Cartitem[]{
+        return this.items
+     }
+   
+
+      getTotalItems():number{          
+         return this.items.reduce((total,item)=>item.quantity+total,0)
+         
+      }
+      renderCart(container:HTMLDivElement):void{
+         container.innerHTML="";
+          
+         this.items.forEach(item=>{
+            const p= document.createElement("p");
+            p.textContent = `${item.product.name}-Quantity:${item.quantity}`
+            container.appendChild(p);
+         })
+         const total = document.createElement("p");
+         total.textContent = `Total: $${this.calculateTotal()}`;
+         container.appendChild(total);
+
       }
  }
+
  const cart = new ShoppingCart()
- cart.getTotalItems();
+
+ const appDiv = document.getElementById("app")as HTMLDivElement
+ const button = document.getElementById("test-button") as HTMLButtonElement
+
+ button.addEventListener("click",()=>{
+        cart.additem(product1,4);
+        cart.renderCart(appDiv);
+ })
+ 
+ cart.additem(product1,2)
