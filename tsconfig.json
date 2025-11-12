@@ -1,17 +1,40 @@
 {
-    "compilerOptions": {
-    "target": "ES2015",
-    "module": "es2015",
-   // "lib":["ES2020"],
-    "outDir": "./dist",
-    "rootDir": "./src",
-    "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
+  "compilerOptions": {
+    /* === Output & Module System === */
+    "target": "ES2017",                     
+    "module": "ES2020",                     
+    "moduleResolution": "node",             
+
+    /* === Output Directory === */
+    //"outDir": "./dist",                     
+   // "rootDir": "./src",                     
+
+    /* === Browser Compatibility === */
+    "lib": ["DOM", "ES2020"],              
+
+    /* === Type Checking === */
+    "strict": true,                         
+    "noImplicitAny": true,                  
+    "strictNullChecks": true,               
+    "strictFunctionTypes": true,            
+
+    /* === Module Imports/Exports === */
+    "esModuleInterop": true,                
+    "allowSyntheticDefaultImports": true,   
     "forceConsistentCasingInFileNames": true,
-   // "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "sourceMap": true
+    "isolatedModules": true,                
+
+    /* === Source Maps (optional, for debugging) === */
+    "sourceMap": true,                      
+
+    /* === Clean Output === */
+    "skipLibCheck": true,                   
+
+    /* === Output Format === */
+    "moduleDetection": "force"
   },
- 
+
+  /* === Include & Exclude Files === */
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
 }
