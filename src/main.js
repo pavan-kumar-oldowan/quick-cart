@@ -45,6 +45,12 @@ class ShoppingCart {
     calculateTotal() {
         return this.items.reduce((total, item) => item.quantity * item.product.price, 0);
     }
+    updateItemQuantity(productid, itemQuantity) {
+        const item = this.items.find((item) => item.product.id == productid);
+        if (item) {
+            item.quantity = itemQuantity;
+        }
+    }
     getItems() {
         return this.items;
     }
@@ -63,6 +69,23 @@ class ShoppingCart {
         container.appendChild(total);
     }
 }
+const sampleSummary = {
+    name: "headphones",
+    price: 100
+};
+function updateProduct(productId, changes) {
+    console.log(`Updating product #${productId} with changes:`, changes);
+    // You could merge this into an existing product in a real app
+}
+updateProduct(2, { price: 30 }); // only updates price
+updateProduct(3, { name: "New Keyboard" });
+function mockFetch(data) {
+    return new Promise((resolve) => {
+        setTimeout(() => resolve(data), 1000);
+    });
+}
+mockFetch(AllProduct).then(products => console.log("FetchedProducts", products));
+mockFetch({ id: 1, name: "pavan" }).then(user => console.log("FetchedUser", user));
 const cart = new ShoppingCart();
 const appDiv = document.getElementById("app");
 const button = document.getElementById("test-button");
@@ -70,6 +93,6 @@ button.addEventListener("click", () => {
     cart.additem(product1, 4);
     cart.renderCart(appDiv);
 });
-cart.additem(product1, 2);
+cart.renderCart(appDiv);
 export {};
 //# sourceMappingURL=main.js.map

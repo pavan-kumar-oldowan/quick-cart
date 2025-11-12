@@ -81,6 +81,14 @@
      calculateTotal():number{
          return this.items.reduce((total,item)=>item.quantity*item.product.price,0)
      }
+     updateItemQuantity(productid:number,itemQuantity:number):void{
+        const item= this.items.find((item)=>item.product.id==productid)
+         if(item){
+          item.quantity=itemQuantity;
+      }
+   }
+  
+      
       
      getItems():Cartitem[]{
         return this.items
@@ -105,6 +113,27 @@
 
       }
  }
+ type productSummary = Pick<product,"name"|"price">;
+ const sampleSummary:productSummary={
+       name:"headphones",
+       price:100
+ }
+ function updateProduct(productId: number, changes: Partial<product>): void {
+  console.log(`Updating product #${productId} with changes:`, changes);
+  // You could merge this into an existing product in a real app
+}
+updateProduct(2, { price: 30 });           // only updates price
+updateProduct(3, { name: "New Keyboard" });
+ function mockFetch<T>(data:T):Promise<T>{
+    return new Promise((resolve)=>{
+      setTimeout(()=>resolve(data),1000)
+    })
+ }
+ mockFetch(AllProduct).then(products=>console.log("FetchedProducts",products));
+ mockFetch({id:1,name:"pavan"}).then(user=>console.log("FetchedUser",user))
+
+
+
 
  const cart = new ShoppingCart()
 
@@ -115,5 +144,4 @@
         cart.additem(product1,4);
         cart.renderCart(appDiv);
  })
- 
- cart.additem(product1,2)
+ cart.renderCart(appDiv);
