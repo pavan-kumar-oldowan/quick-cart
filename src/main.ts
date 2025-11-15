@@ -1,4 +1,5 @@
-
+import { product,productStatus } from "./types.js";
+import ShoppingCart from "./ShoppingCart.js";
  let itemName:string = "TV";
 
  let itemPrice:number = 5000;
@@ -13,24 +14,23 @@
 // console.log(productsAvailable)
   
  // create a Interface
-
- interface product {
-    readonly id:number;
-    name:string;
-    price:number;
-    description?:string;
- }
+     /*  interface product {
+          readonly id:number;
+          name:string;
+          price:number;
+          description?:string;
+      } */
 
  // create a AllProductArray it Accepts only product [] array only
 
  let AllProduct:product[]=[];
 
 // create a sample products objects
- let product1: product = { id: 1, name: "TV", price: 8000, description: "24-inch display" };
- let product2: product = { id: 2, name:"Fans", price: 6000 };
- let product3: product = { id: 3, name: "AC", price: 60000, description: "3-star" };
+ let product1: product = { id: 1, name: "TV", price: 8000, description: "24-inch display" ,status:productStatus.Available};
+ let product2: product = { id: 2, name:"Fans", price: 6000 ,status:productStatus.outOfStock};
+ let product3: product = { id: 3, name: "AC", price: 60000, description: "3-star",status:productStatus.Available };
 
- // add the sproducts in allProduct[]
+ // add the products in allProduct[]
 
  AllProduct.push(product1,product2,product3)
  //console.log(AllProduct)
@@ -38,20 +38,21 @@
  // create a DisplayFunction
 
  function displayProduct(prod:product):void{
-   // console.log(`itemName is :${prod.name}`)
-    //console.log(`itemPrice is :${prod.price}`);
+    console.log(`${prod.name}-$${prod.price}`)
+   
  }
 
  displayProduct(product1);
-
- type CartItemID =number;
-
- interface Cartitem {
-      product:product;
-      quantity:number;
- }
+// create a CartItemId type 
+    //type CartItemID =number;
+  // Create a Cartitem Interface
+    /* interface Cartitem {
+           product:product;
+           quantity:number;
+       } */
 // Creata a class 
- class  ShoppingCart{
+
+ /*class  ShoppingCart{
    private items :Cartitem[]=[];
 
  // Create a Add Method
@@ -113,6 +114,7 @@
 
       }
  }
+   */
  type productSummary = Pick<product,"name"|"price">;
  const sampleSummary:productSummary={
        name:"headphones",
